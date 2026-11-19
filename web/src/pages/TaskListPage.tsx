@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchTasks, type TaskListItem } from "../api";
+import { fetchTasks } from "../api";
 import { Card, Message, Skeleton, StatCard, StatusBadge } from "../components/ui";
 import { formatDateTime, formatOptional } from "../format";
+import type { TaskListItem } from "../types/api";
 
 const STATUSES = ["Pending", "In Progress", "Paused", "Completed", "Cancelled"] as const;
 const CLOSED_STATUSES = new Set<string>(["Completed", "Cancelled"]);

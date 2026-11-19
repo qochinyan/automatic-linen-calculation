@@ -1,8 +1,9 @@
 import { resolve } from "node:path";
 import type { FastifyInstance } from "fastify";
-import { createSchema, openDatabase, type Db } from "../../src/infrastructure/db/connection.js";
-import { loadSourceData, type SourceData } from "../../src/infrastructure/input/loadSourceData.js";
-import type { EventInput } from "../../src/infrastructure/input/schemas.js";
+import { createSchema, openDatabase } from "../../src/infrastructure/db/connection.js";
+import type { Db } from "../../src/infrastructure/db/types.js";
+import { loadSourceData } from "../../src/infrastructure/input/loadSourceData.js";
+import type { EventInput, SourceData } from "../../src/infrastructure/input/types.js";
 import { buildApp } from "../../src/infrastructure/http/app.js";
 import { seedInitialState } from "../../src/seed/buildDatabase.js";
 

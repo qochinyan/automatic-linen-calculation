@@ -1,11 +1,5 @@
 import { findPreviousReservation } from "./selection.js";
-import type { ReservationSnapshot, ReservationStatus } from "./types.js";
-
-export interface FieldChange {
-  field: string;
-  old: unknown;
-  new: unknown;
-}
+import type { FieldChange, ReservationSnapshot, ReservationStatus } from "./types.js";
 
 const RECALCULATION_FIELDS: ReadonlySet<string> = new Set([
   "guests_count",

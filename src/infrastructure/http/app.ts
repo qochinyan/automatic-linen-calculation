@@ -3,20 +3,10 @@ import { ZodError } from "zod";
 import { ConflictError, NotFoundError } from "../../application/errors.js";
 import { processReservationEvent, EventRejectedError } from "../../application/processReservationEvent.js";
 import { createTask, getTask, getTaskHistory, listTasks, updateTask } from "../../application/taskService.js";
-import type { Db } from "../db/connection.js";
+import type { Db } from "../db/types.js";
 import { eventSchema, taskSchema } from "../input/schemas.js";
 import { taskPatchSchema } from "./requestSchemas.js";
-
-interface TaskParams {
-  id: string;
-}
-
-interface ErrorBody {
-  status: number;
-  code: string;
-  message: string;
-  details?: unknown;
-}
+import type { ErrorBody, TaskParams } from "./types.js";
 
 export function buildApp(db: Db): FastifyInstance {
   const app = Fastify({ logger: false });

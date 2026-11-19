@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { affectedReservationIds, requiresRecalculation, type FieldChange } from "../domain/reservations/affectedReservations.js";
-import type { ReservationSnapshot } from "../domain/reservations/types.js";
-import type { Db } from "../infrastructure/db/connection.js";
+import { affectedReservationIds, requiresRecalculation } from "../domain/reservations/affectedReservations.js";
+import type { FieldChange, ReservationSnapshot } from "../domain/reservations/types.js";
 import { recordProcessedEvent } from "../infrastructure/db/eventRepository.js";
 import {
   findOpenMainCleaningTasksForReservations,
@@ -11,13 +10,13 @@ import {
   setReservationField,
 } from "../infrastructure/db/reservationRepository.js";
 import { moveOpenTasksToListing } from "../infrastructure/db/taskRepository.js";
-import { reservationFieldSchemas, type ReservationField } from "../infrastructure/input/reservationFieldSchemas.js";
-import type { EventInput } from "../infrastructure/input/schemas.js";
+import type { Db } from "../infrastructure/db/types.js";
+import { reservationFieldSchemas } from "../infrastructure/input/reservationFieldSchemas.js";
+import type { EventInput, ReservationField } from "../infrastructure/input/types.js";
 import { applyTaskLinen } from "./linenCalculation.js";
+import type { EventOutcome } from "./types.js";
 
 export class EventRejectedError extends Error {}
-
-export type EventOutcome = { status: "duplicate" } | { status: "processed"; recalculatedTaskIds: string[] };
 
 export function processReservationEvent(db: Db, event: EventInput): EventOutcome {
   return db.transaction((): EventOutcome => {

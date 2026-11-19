@@ -1,5 +1,5 @@
-import type { Db } from "../infrastructure/db/connection.js";
-import type { LinenRecordValues } from "../infrastructure/db/linenRepository.js";
+import type { TaskPatch } from "../infrastructure/http/types.js";
+import type { Db, LinenRecordValues, TaskColumn, TaskValues } from "../infrastructure/db/types.js";
 import { loadAllReservations } from "../infrastructure/db/reservationRepository.js";
 import {
   listLinenHistoryRows,
@@ -8,71 +8,14 @@ import {
   loadLinenViewRow,
   loadReservationViewRow,
 } from "../infrastructure/db/queryRepository.js";
-import {
-  insertTask,
-  loadTask,
-  updateTaskColumns,
-  type TaskColumn,
-  type TaskValues,
-} from "../infrastructure/db/taskRepository.js";
-import type { TaskPatch } from "../infrastructure/http/requestSchemas.js";
+import { insertTask, loadTask, updateTaskColumns } from "../infrastructure/db/taskRepository.js";
 import { ConflictError, NotFoundError } from "./errors.js";
 import { applyTaskLinen } from "./linenCalculation.js";
+import type { TaskDetail, TaskHistoryEntry, TaskListItem } from "./types.js";
 
 const CLOSED_STATUSES: ReadonlySet<string> = new Set(["Completed", "Cancelled"]);
 const LINEN_TRIGGER_COLUMNS: readonly TaskColumn[] = ["task_type", "listing_id", "reservation_id", "planned_start"];
 const PATCHABLE_COLUMNS: readonly TaskColumn[] = ["task_type", "status", "listing_id", "reservation_id", "planned_start"];
-
-export interface TaskListItem {
-  task_id: string;
-  task_type: string;
-  status: string;
-  listing_id: string | null;
-  apartment_name: string | null;
-  reservation_id: string | null;
-  planned_start: string;
-  linen: { sheets: number; towels: number } | null;
-}
-
-export interface TaskDetail {
-  task: TaskValues;
-  apartment: { listing_id: string; name: string } | null;
-  reservation: {
-    reservation_id: string;
-    listing_id: string;
-    status: string;
-    planned_arrival_time: string;
-    planned_departure_time: string;
-    guests_count: number;
-    infants: number;
-    number_of_guests_override: number | null;
-    requested_sofabed: boolean;
-  } | null;
-  linen: {
-    prepared_for_guests: number;
-    sheets: number;
-    towels: number;
-    bathmats: number;
-    handtowels: number;
-    dishtowels: number;
-    requested_sofabeds_count: number;
-    source_reservation_id: string;
-    actual_guests: number;
-    infants: number;
-    number_of_guests_override: number | null;
-    requested_sofabed: boolean;
-    calculated_at: string;
-  } | null;
-}
-
-export interface TaskHistoryEntry {
-  id: number;
-  reason: string;
-  event_id: string | null;
-  old_values: unknown;
-  new_values: unknown;
-  created_at: string;
-}
 
 export function listTasks(db: Db): TaskListItem[] {
   return listTaskRows(db).map((row) => ({

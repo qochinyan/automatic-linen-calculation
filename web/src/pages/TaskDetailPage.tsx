@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchTask, fetchTaskHistory, type HistoryEntry, type LinenValues, type TaskDetail } from "../api";
+import { fetchTask, fetchTaskHistory } from "../api";
 import { Card, Field, LinenTile, Message, Skeleton, StatusBadge, YesNo } from "../components/ui";
 import { formatDateTime, formatOptional } from "../format";
-
-interface PageData {
-  detail: TaskDetail;
-  history: HistoryEntry[];
-}
-
-type LinenCountKey = "sheets" | "towels" | "bathmats" | "handtowels" | "dishtowels" | "requested_sofabeds_count";
+import type { LinenValues } from "../types/api";
+import type { LinenCountKey, PageData } from "../types/view";
 
 const LINEN_FIELDS: Array<{ key: LinenCountKey; label: string }> = [
   { key: "sheets", label: "Sheets" },

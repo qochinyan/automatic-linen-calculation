@@ -1,25 +1,17 @@
-import { calculateDefaultLinen, calculateLinen, effectiveGuests, type LinenQuantities } from "../domain/linen/calculateLinen.js";
+import { calculateDefaultLinen, calculateLinen, effectiveGuests } from "../domain/linen/calculateLinen.js";
+import type { LinenQuantities } from "../domain/linen/types.js";
 import { findPreparationReservation } from "../domain/reservations/selection.js";
 import type { ReservationSnapshot } from "../domain/reservations/types.js";
-import type { Db } from "../infrastructure/db/connection.js";
 import {
   deleteLinenRecord,
   insertLinenHistory,
   loadLinenRecord,
   loadListingLinenConfig,
   upsertLinenRecord,
-  type LinenRecordValues,
-  type StoredLinenRecord,
 } from "../infrastructure/db/linenRepository.js";
 import { loadTask } from "../infrastructure/db/taskRepository.js";
-
-export interface LinenRecalculationContext {
-  reservations: readonly ReservationSnapshot[];
-  timestamp: string;
-  reason: string;
-  eventId: string | null;
-  recordHistory: boolean;
-}
+import type { Db, LinenRecordValues, StoredLinenRecord } from "../infrastructure/db/types.js";
+import type { LinenRecalculationContext } from "./types.js";
 
 export function applyTaskLinen(db: Db, taskId: string, context: LinenRecalculationContext): void {
   const next = computeLinenValues(db, taskId, context.reservations);

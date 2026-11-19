@@ -1,21 +1,5 @@
-import type { ApartmentCapacity } from "./parseLinenAttribute.js";
 import { bathroomCount, dishtowelCount } from "./apartmentRules.js";
-
-export interface LinenQuantities {
-  sheets: number;
-  towels: number;
-  bathmats: number;
-  handtowels: number;
-  dishtowels: number;
-  requestedSofabedsCount: number;
-}
-
-export interface LinenRequest {
-  apartmentName: string;
-  capacity: ApartmentCapacity;
-  guests: number;
-  requestedSofabed: boolean;
-}
+import type { ApartmentCapacity, LinenQuantities, LinenRequest } from "./types.js";
 
 export function effectiveGuests(guestsCount: number, numberOfGuestsOverride: number | null): number {
   return Math.max(guestsCount, numberOfGuestsOverride ?? 0);

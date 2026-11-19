@@ -1,11 +1,7 @@
 import { describe, expect, it } from "vitest";
-import {
-  calculateDefaultLinen,
-  calculateLinen,
-  effectiveGuests,
-  type LinenQuantities,
-} from "../../../src/domain/linen/calculateLinen.js";
-import { parseLinenAttribute, type ApartmentCapacity } from "../../../src/domain/linen/parseLinenAttribute.js";
+import { calculateDefaultLinen, calculateLinen, effectiveGuests } from "../../../src/domain/linen/calculateLinen.js";
+import { parseLinenAttribute } from "../../../src/domain/linen/parseLinenAttribute.js";
+import type { ApartmentCapacity, LinenQuantities } from "../../../src/domain/linen/types.js";
 
 function capacity(beds: number, bedSpots: number, sofaBeds: number, sofaSpots: number): ApartmentCapacity {
   return { beds, bedSpots, sofaBeds, sofaSpots };

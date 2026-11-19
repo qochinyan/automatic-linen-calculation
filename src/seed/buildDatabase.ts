@@ -1,17 +1,11 @@
 import { applyTaskLinen } from "../application/linenCalculation.js";
 import { processReservationEvent } from "../application/processReservationEvent.js";
 import { parseLinenAttribute } from "../domain/linen/parseLinenAttribute.js";
-import type { Db } from "../infrastructure/db/connection.js";
+import type { Db } from "../infrastructure/db/types.js";
 import { insertReservation, loadAllReservations } from "../infrastructure/db/reservationRepository.js";
 import { insertTask, loadMainCleaningTaskIds } from "../infrastructure/db/taskRepository.js";
-import type { SourceData } from "../infrastructure/input/loadSourceData.js";
-import type { EventInput } from "../infrastructure/input/schemas.js";
-
-export interface ReplaySummary {
-  processed: number;
-  duplicates: number;
-  recalculations: number;
-}
+import type { EventInput, SourceData } from "../infrastructure/input/types.js";
+import type { ReplaySummary } from "./types.js";
 
 export function seedInitialState(db: Db, source: SourceData, baselineTimestamp = new Date().toISOString()): void {
   db.transaction(() => {

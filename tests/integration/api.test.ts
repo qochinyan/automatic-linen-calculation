@@ -1,6 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { Db } from "../../src/infrastructure/db/connection.js";
+import type { Db } from "../../src/infrastructure/db/types.js";
 import { createTestApp, eventById, postEvent, postEventById } from "../helpers/fixtures.js";
 
 let app: FastifyInstance;

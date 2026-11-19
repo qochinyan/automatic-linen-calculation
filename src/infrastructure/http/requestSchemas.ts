@@ -11,5 +11,3 @@ export const taskPatchSchema = z
   })
   .strict()
   .refine((patch) => Object.keys(patch).length > 0, { message: "At least one field must be provided" });
-
-export type TaskPatch = z.infer<typeof taskPatchSchema>;

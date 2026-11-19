@@ -1,5 +1,11 @@
 export type ReservationStatus = "Confirmed" | "InHouse" | "CheckedOut" | "Canceled" | "NoShow";
 
+export interface FieldChange {
+  field: string;
+  old: unknown;
+  new: unknown;
+}
+
 export interface ReservationSnapshot {
   reservationId: string;
   listingId: string;

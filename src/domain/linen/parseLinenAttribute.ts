@@ -1,9 +1,4 @@
-export interface ApartmentCapacity {
-  beds: number;
-  bedSpots: number;
-  sofaBeds: number;
-  sofaSpots: number;
-}
+import type { ApartmentCapacity } from "./types.js";
 
 const REQUIRED_KEYS = ["beds", "bedspots", "sofabeds", "sofaspots"] as const;
 

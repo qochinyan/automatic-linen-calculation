@@ -14,5 +14,3 @@ export const reservationFieldSchemas = {
   number_of_guests_override: nonNegativeInt.nullable(),
   requested_sofabed: z.boolean(),
 };
-
-export type ReservationField = keyof typeof reservationFieldSchemas;

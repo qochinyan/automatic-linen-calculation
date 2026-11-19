@@ -1,23 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
-import {
-  eventSchema,
-  listingSchema,
-  reservationSchema,
-  taskSchema,
-  type EventInput,
-  type ListingInput,
-  type ReservationInput,
-  type TaskInput,
-} from "./schemas.js";
-
-export interface SourceData {
-  listings: ListingInput[];
-  reservations: ReservationInput[];
-  tasks: TaskInput[];
-  events: EventInput[];
-}
+import { eventSchema, listingSchema, reservationSchema, taskSchema } from "./schemas.js";
+import type { SourceData } from "./types.js";
 
 function readJsonArray<T>(dataDir: string, fileName: string, schema: z.ZodType<T>): T[] {
   const path = join(dataDir, fileName);
