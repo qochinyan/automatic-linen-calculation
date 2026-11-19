@@ -1,0 +1,36 @@
+{
+  "name": "automatic-linen-calculation-backend",
+  "version": "1.0.0",
+  "description": "Backend API that receives reservation events and keeps the linen of open Main Cleaning tasks up to date.",
+  "scripts": {
+    "seed": "tsx src/seed/seed.ts",
+    "start": "tsx src/api/server.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qochinyan/automatic-linen-calculation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/qochinyan/automatic-linen-calculation/issues"
+  },
+  "homepage": "https://github.com/qochinyan/automatic-linen-calculation#readme",
+  "dependencies": {
+    "better-sqlite3": "^13.2.0",
+    "fastify": "^5.12.8",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
+  },
+  "private": true
+}
